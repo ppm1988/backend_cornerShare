@@ -12,4 +12,4 @@ const schema = new Schema({
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('CUser', schema);
+module.exports = mongoose.model('CPosts', schema);

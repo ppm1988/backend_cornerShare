@@ -1,0 +1,15 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const schema = new Schema({
+    templateName: { type: String, required: true },
+    templateType: { type: String, default: 'post' },
+    columns: { type : [String]},
+    createdDate: { type: Date, default: Date.now },
+    createdBy: { type: String, required: true },
+    showGroup: { type: [String], default: ['public'] }
+});
+
+schema.set('toJSON', { virtuals: true });
+
+module.exports = mongoose.model('CTemplates', schema);
