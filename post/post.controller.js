@@ -3,8 +3,6 @@ const router = express.Router();
 const postService = require('./post.service');
 
 // routes
-router.post('/authenticate', authenticate);
-router.post('/register', register);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
@@ -13,17 +11,17 @@ router.delete('/:id', _delete);
 
 module.exports = router;
 
-function authenticate(req, res, next) {
-    postService.authenticate(req.body)
-        .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
-        .catch(err => next(err));
-}
+// function authenticate(req, res, next) {
+//     postService.authenticate(req.body)
+//         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
+//         .catch(err => next(err));
+// }
 
-function register(req, res, next) {
-    postService.create(req.body)
-        .then(() => res.json({}))
-        .catch(err => next(err));
-}
+// function register(req, res, next) {
+//     postService.create(req.body)
+//         .then(() => res.json({}))
+//         .catch(err => next(err));
+// }
 
 function getAll(req, res, next) {
     postService.getAll()
