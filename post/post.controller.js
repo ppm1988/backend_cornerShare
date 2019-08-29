@@ -5,7 +5,7 @@ const postService = require('./post.service');
 // routes
 router.post('/create', createPost);
 router.get('/', getAll);
-router.get('/all', getAllPosts);
+router.get('/all', getAllActivePosts);
 router.get('/archive', getArchive);
 router.get('/data', getDataPost);
 router.get('/:id', getById);
@@ -21,13 +21,15 @@ function createPost (req, res, next) {
 }
 
 function getAll (req, res, next) {
+    // all public posts - only summary
+
     postService.getAllActiveSummary()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }
 
-function getAllPosts (req, res, next) {
-    postService.getAllActive()
+function getAllActivePosts (req, res, next) {
+    postService.getAllActivePosts()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }

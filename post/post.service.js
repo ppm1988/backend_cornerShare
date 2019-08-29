@@ -3,8 +3,8 @@ const CPost = db.CPost;
 
 module.exports = {
     createPost,
-    getAllActive,
-    getAllActiveSummary,
+    getAll,
+    getAllActivePosts,
     getArchive,
     getDataPost,
     getById,
@@ -12,7 +12,7 @@ module.exports = {
     delete: _delete
 };
 
-async function getAllActive () {
+async function getAll () {
   // TO DO: GET ONLY SUMMARY
     return await CPost.find({ type: 'post' }).select('-hash');
 }
@@ -29,8 +29,8 @@ async function getDataPost () {
   return await CPost.find({type: 'data'}).select('-hash');
 }
 
-async function getAllActiveSummary () {
-  return await CPost.find({ type: 'post' }).select('-hash');
+async function getAllActivePosts () {
+  return await CPost.find({$nor: {type: 'archive'} }).select('-hash');
 }
 
 async function createPost (inpParam) {

@@ -5,7 +5,7 @@ const templateService = require('./user.service');
 // routes
 router.post('/create', createTemplate);
 router.get('/', getAll);
-router.get('/all', getAllTemplates);
+router.get('/all', getAllActiveTemplates);
 router.get('/archive', getArchive);
 router.get('/:id', getById);
 router.put('/:id', update);
@@ -26,13 +26,14 @@ function createTemplate (req, res, next) {
 }
 
 function getAll (req, res, next) {
-    postService.getAllActiveSummary()
+    // all public templates - only summary
+    postService.getAll()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }
 
-function getAllTemplates (req, res, next) {
-    postService.getAllTemplates()
+function getAllActiveTemplates (req, res, next) {
+    postService.getAllActiveTemplates()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }

@@ -7,7 +7,7 @@ const CTemplate = db.CTemplate;
 module.exports = {
     createTemplate,
     getAll,
-    getAllTemplates,
+    getAllActiveTemplates,
     getArchive,
     getById,
     update,
@@ -16,7 +16,7 @@ module.exports = {
 
 async function getAll () {
   // TO DO: GET ONLY SUMMARY
-    return await CTemplate.find().select('-hash');
+    return await CTemplate.find({type: 'post'}).select('-hash');
 }
 
 async function getById (id) {
@@ -29,7 +29,7 @@ async function getArchive () {
 
 // TO DO: GET ONLY DATA TEMPLATES
 
-async function getAllTemplates () {
+async function getAllActiveTemplates () {
   return await CTemplate.find({ $nor: {type: 'archive'} }).select('-hash');
 }
 
