@@ -5,6 +5,7 @@ const schema = new Schema({
     type: { type: String, default: 'post' }, // { post, archive, data }
     templateName: { type: String, required: true },
     viewName: { type: String, required: true },
+    description: { type: String },
     dateRange: { type: {
         from: { type: Date, required: true },
         till: { type: Date, required: true }
@@ -17,4 +18,4 @@ const schema = new Schema({
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('CPosts', schema);
+module.exports = mongoose.model('CPost', schema);

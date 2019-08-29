@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    name: { type: String, required: true },
-    type: { type: String, default: 'post' }, // { post, data }
+    name: { type: String, unique: true, required: true },
+    type: { type: String, default: 'post' }, // { post, data, archive }
+    description: { type: String },
     columns: { type : { } },
     createdDate: { type: Date, default: Date.now },
     createdBy: { type: String, required: true },
@@ -12,4 +13,4 @@ const schema = new Schema({
 
 schema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('CTemplates', schema);
+module.exports = mongoose.model('CTemplate', schema);

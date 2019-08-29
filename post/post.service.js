@@ -1,63 +1,54 @@
-const config = require('config.json');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
-const User = db.User;
+const CPost = db.CPost;
 
 module.exports = {
-    authenticate,
-    getAll,
+    createPost,
+    getAllActive,
+    getAllActiveSummary,
+    getArchive,
+    getDataPost,
     getById,
-    create,
     update,
     delete: _delete
 };
 
-async function getAll() {
-    return await User.find().select('-hash');
+async function getAllActive () {
+  // TO DO: GET ONLY SUMMARY
+    return await CPost.find({ type: 'post' }).select('-hash');
 }
 
-async function getById(id) {
-    return await User.findById(id).select('-hash');
+async function getById (id) {
+    return await CPost.findById(id).select('-hash');
 }
 
-async function create(userParam) {
-    // validate
-    if (await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
-    }
-
-    const user = new User(userParam);
-
-    // hash password
-    if (userParam.password) {
-        user.hash = bcrypt.hashSync(userParam.password, 10);
-    }
-
-    // save user
-    await user.save();
+async function getArchive () {
+  return await CPost.find({type: 'archive'}).select('-hash');
 }
 
-async function update(id, userParam) {
-    const user = await User.findById(id);
+async function getDataPost () {
+  return await CPost.find({type: 'data'}).select('-hash');
+}
 
-    // validate
-    if (!user) throw 'User not found';
-    if (user.username !== userParam.username && await User.findOne({ username: userParam.username })) {
-        throw 'Username "' + userParam.username + '" is already taken';
-    }
+async function getAllActiveSummary () {
+  return await CPost.find({ type: 'post' }).select('-hash');
+}
 
-    // hash password if it was entered
-    if (userParam.password) {
-        userParam.hash = bcrypt.hashSync(userParam.password, 10);
-    }
+async function createPost (inpParam) {
+    const CPost = new CPost(inpParam);
 
-    // copy userParam properties to user
-    Object.assign(user, userParam);
+    // save post
+    await CPost.save();
+}
 
-    await user.save();
+async function update(id, inpParam) {
+    const CPost = await CPost.findById(id);
+
+    // copy inpParam properties to CPost
+    Object.assign(CPost, inpParam);
+
+    await CPost.save();
 }
 
 async function _delete(id) {
-    await User.findByIdAndRemove(id);
+    await CPost.findByIdAndRemove(id);
 }
