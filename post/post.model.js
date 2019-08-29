@@ -10,6 +10,7 @@ const schema = new Schema({
         from: { type: Date, required: true },
         till: { type: Date, required: true }
     }, required: true },
+    values: { type: [ {} ], required: true },
     createdDate: { type: Date, default: Date.now },
     createdBy: { type: String, required: true },
     priority: { type: String, default: 'medium'}, // { top, high, medium, low }
