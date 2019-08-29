@@ -52,10 +52,10 @@ async function createTemplate (inpParam) {
 			throw 'Template name "' + inpParam.name + '" is already taken';
 	}
 
-	const template = new CTemplate(inpParam);
+	const newTemplate = new CTemplate(inpParam);
 
 	// save template
-	await template.save();
+	await newTemplate.save();
 }
 
 async function update(id, inpParam) {
@@ -63,18 +63,18 @@ async function update(id, inpParam) {
 		return { message: 'No templates exists' };
 	}
 
-	const CTemplate = await CTemplate.findById(id);
+	const templateData = await CTemplate.findById(id);
 
 	// validate
-	if (!CTemplate) throw 'Template not found';
-	if (CTemplate.name !== inpParam.name && await CTemplate.findOne({ name: inpParam.name })) {
+	if (!templateData) throw 'Template not found';
+	if (templateData.name !== inpParam.name && await CTemplate.findOne({ name: inpParam.name })) {
 			throw 'Template name "' + inpParam.name + '" is already taken';
 	}
 
 	// copy inpParam properties to CTemplate
-	Object.assign(CTemplate, inpParam);
+	Object.assign(templateData, inpParam);
 
-	await CTemplate.save();
+	await templateData.save();
 }
 
 async function _delete(id) {

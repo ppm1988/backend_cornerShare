@@ -54,10 +54,10 @@ async function getAllActivePosts () {
 }
 
 async function createPost (inpParam) {
-  const post = new CPost(inpParam);
+  const newPost = new CPost(inpParam);
 
   // save post
-  await post.save();
+  await newPost.save();
 }
 
 async function update(id, inpParam) {
@@ -65,12 +65,12 @@ async function update(id, inpParam) {
     return { message: 'No posts exists' };
   }
 
-  const CPost = await CPost.findById(id);
+  const postData = await CPost.findById(id);
 
   // copy inpParam properties to CPost
-  Object.assign(CPost, inpParam);
+  Object.assign(postData, inpParam);
 
-  await CPost.save();
+  await postData.save();
   return { message: 'Post save successful' };
 }
 

@@ -54,12 +54,12 @@ function getById (req, res, next) {
 
 function update (req, res, next) {
     postService.update(req.params.id, req.body)
-        .then(() => res.json({}))
+        .then(successRes => res.json(successRes))
         .catch(err => next(err));
 }
 
 function _delete (req, res, next) {
     postService.delete(req.params.id)
-        .then(() => res.json({}))
+        .then(successRes => res.json(successRes))
         .catch(err => next(err));
 }
