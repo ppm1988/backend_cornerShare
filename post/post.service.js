@@ -54,10 +54,10 @@ async function getAllActivePosts () {
 }
 
 async function createPost (inpParam) {
-  const CPost = new CPost(inpParam);
+  const post = new CPost(inpParam);
 
   // save post
-  await CPost.save();
+  await post.save();
 }
 
 async function update(id, inpParam) {

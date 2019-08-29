@@ -52,10 +52,10 @@ async function createTemplate (inpParam) {
 			throw 'Template name "' + inpParam.name + '" is already taken';
 	}
 
-	const CTemplate = new CTemplate(inpParam);
+	const template = new CTemplate(inpParam);
 
 	// save template
-	await CTemplate.save();
+	await template.save();
 }
 
 async function update(id, inpParam) {

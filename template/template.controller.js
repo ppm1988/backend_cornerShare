@@ -13,12 +13,6 @@ router.delete('/:id', _delete);
 
 module.exports = router;
 
-// function authenticate(req, res, next) {
-//     templateService.authenticate(req.body)
-//         .then(user => user ? res.json(user) : res.status(400).json({ message: 'Username or password is incorrect' }))
-//         .catch(err => next(err));
-// }
-
 function createTemplate (req, res, next) {
     templateService.createTemplate(req.body)
         .then(() => res.json({}))
@@ -40,13 +34,13 @@ function getAllActiveTemplates (req, res, next) {
 
 function getArchive (req, res, next) {
     templateService.getArchive(req.user.sub)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .then(templateData => templateData ? res.json(templateData) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
 function getById (req, res, next) {
     templateService.getById(req.params.id)
-        .then(user => user ? res.json(user) : res.sendStatus(404))
+        .then(templateData => templateData ? res.json(templateData) : res.sendStatus(404))
         .catch(err => next(err));
 }
 
