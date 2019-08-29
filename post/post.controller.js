@@ -23,13 +23,19 @@ function createPost (req, res, next) {
 function getAll (req, res, next) {
     // all public posts - only summary
 
-    postService.getAllActiveSummary()
+    postService.getAll()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }
 
 function getAllActivePosts (req, res, next) {
     postService.getAllActivePosts()
+        .then(posts => res.json(posts))
+        .catch(err => next(err));
+}
+
+function getDataPost (req, res, next) {
+    postService.getDataPost()
         .then(posts => res.json(posts))
         .catch(err => next(err));
 }
