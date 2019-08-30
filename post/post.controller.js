@@ -47,9 +47,13 @@ function getArchive (req, res, next) {
 }
 
 function getById (req, res, next) {
-    postService.getById(req.params.id)
-        .then(post => post ? res.json(post) : res.sendStatus(404))
-        .catch(err => next(err));
+    if ( req.params && req.params.id && req.params.id.match(/^[0-9a-fA-F]{24}$/) ) {
+        postService.getById(req.params.id)
+            .then(post => post ? res.json(post) : res.sendStatus(404))
+            .catch(err => next(err));
+    } else {
+        res.sendStatus(404);
+    }
 }
 
 function update (req, res, next) {

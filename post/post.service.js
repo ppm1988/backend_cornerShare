@@ -50,7 +50,7 @@ async function getAllActivePosts () {
     return { message: 'No posts exists' };
   }
 
-  return await CPost.find({$nor: {type: 'archive'} }).select('-hash');
+  return await CPost.find({type: {$ne: 'archive'} }).select('-hash');
 }
 
 async function createPost (inpParam) {

@@ -39,9 +39,13 @@ function getArchive (req, res, next) {
 }
 
 function getById (req, res, next) {
-    templateService.getById(req.params.id)
-        .then(templateData => templateData ? res.json(templateData) : res.sendStatus(404))
-        .catch(err => next(err));
+    if ( req.params && req.params.id && req.params.id.match(/^[0-9a-fA-F]{24}$/) ) {
+        templateService.getById(req.params.id)
+            .then(templateData => templateData ? res.json(templateData) : res.sendStatus(404))
+            .catch(err => next(err));
+    } else {
+        res.sendStatus(404);
+    }
 }
 
 function update (req, res, next) {

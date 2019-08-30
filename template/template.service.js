@@ -43,7 +43,7 @@ async function getAllActiveTemplates () {
 		return { message: 'No templates exists' };
 	}
 
-  return await CTemplate.find({ $nor: {type: 'archive'} }).select('-hash');
+  return await CTemplate.find({ type: {$ne: 'archive'} }).select('-hash');
 }
 
 async function createTemplate (inpParam) {
